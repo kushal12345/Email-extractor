@@ -42,6 +42,10 @@ after this search for whatever you want
 * 0.2.2
     * Work in progress
 
+## Known Bugs
+
+ 1. some other text also get's saved as email 
+
 ## Meta
 
 Kushal Luitel – [@Kushalluitel1](https://twitter.com/Kushalluitel1) – kushalluitel3502@Gmail.com
