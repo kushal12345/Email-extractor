@@ -1,7 +1,4 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
-# Comentarios en Español
-# Blog: www.pythondiario.com
 
 from googlesearch import search
 from socket import timeout
@@ -12,8 +9,6 @@ from urllib.request import URLError, HTTPError
 import random
 import os
 import time
-import sqlite3
-from sqlite3 import Error
 import sys
 import re
 from fake_useragent import UserAgent
