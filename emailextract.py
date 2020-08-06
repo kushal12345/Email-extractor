@@ -38,8 +38,7 @@ print("Results:")
 print("___________")
 
 list = []
-listUrl = []
-
+file = open('list.txt', 'w')
 
 def Googlesearch():
     for j in search(query, tld="com", num=100, stop=100, pause=2):
@@ -47,59 +46,57 @@ def Googlesearch():
         Search_school_website(j)
         list.append(j)
 
-
 def Search_school_website(url):
-	try:
-		print ("Searching emails... please wait")
+    try:
+        print("Searching emails.... please wait")
+        count = 0
+        listUrl = []
+        found = False
 
-		count = 0
+        req = urllib.request.Request(url,data=None,headers={'User-Agent':ua.random})
 
+        try:
+            conn = urllib.request.urlopen(req, timeout=100000000)
+        except timeout:
+            raise ValueError('Timeout ERROR')
+        except (HTTPError, URLError):
+            raise ValueError('Bad URL...')
 
-		req = urllib.request.Request(
-    			url,
-    			data=None,
-    			headers={
-        		'User-Agent': ua.random
-    		})
+        status = conn.getcode()
+        contentType = conn.info().get_content_type()
 
-		try:
-			conn = urllib.request.urlopen(req, timeout=10)
+        if(status!=200 or contentType == "audio/mpeg"):
+            raise ValueError('Bad url....')
 
-		except timeout:
-			raise ValueError('Timeout ERROR')
+        html = conn.read().decode('utf-8')
+        emails = re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}',html)
 
-		except (HTTPError, URLError):
-			raise ValueError('Bad Url...')
+        for email in emails:
+            if (email not in listUrl and email[-3:] not in imageExt):
+                count += 1
+                print(str(count) + "-" + email)
+                listUrl.append(email)
+                with open('list.txt', "r") as Readfile:
+                    for line in Readfile:
+                        if email == line:
+                            found=True
+                            break
+                if not found:
+                    with open('list.txt',"a") as file:
+                        file.write(email)
+                        file.write('\n')
 
-		status = conn.getcode()
-		contentType = conn.info().get_content_type()
+        print("")
+        print("**********************************")
+        print(str(count) + "emails were found")
+        print("***********************************")
 
-		if(status != 200 or contentType == "audio/mpeg"):
-    			raise ValueError('Bad Url...')
+    except KeyboardInterrupt:
+        input("press return key to continue")
 
-
-		html = conn.read().decode('utf-8')
-
-		emails = re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}', html)
-
-		for email in emails:
-			if (email not in listUrl and email[-3:] not in imageExt):
-				count += 1
-				print(str(count) + " - " + email)
-				listUrl.append(email)
-
-
-		print("")
-		print("***********************")
-		print(str(count) + " emails were found")
-		print("***********************")
-
-	except KeyboardInterrupt:
-		input("Press return to continue")
-
-	except Exception as e:
-		print (e)
-		input("Press enter to continue")
+    except Exception as e:
+        print(e)
+        input("press enter to continue")
 
 
 Googlesearch()
