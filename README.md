@@ -44,9 +44,9 @@ after this search for whatever you want
 
 ## Meta
 
-Your Name – [@Kushalluitel1](https://twitter.com/Kushalluitel1) – kushalluitel3502@Gmail.com
+Kushal Luitel – [@Kushalluitel1](https://twitter.com/Kushalluitel1) – kushalluitel3502@Gmail.com
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
+Distributed under the MIT license. See ``LICENSE`` for more information.
 
 [https://github.com/kushal12345/Email-extractor](https://github.com/kushal12345/)
 
